@@ -23,21 +23,30 @@
       y: $year,
     };
     $.getJSON(ombdAPI, $dataQuery, showResults);
-  });
+  }); // end submit
   //******************************************************************************
-  // DISPLAY SEARCH RESULTS ON THE PAGE
-  // *data should load inside the #movies <ul>
-  // *see comments in index.html for samples that need to be dynamically created
-  // *each movie returned render an <li> dipslaying:
-  //    **movie title
-  //    **year of release
-  //    **movie poster
-  //        ***render an <img> taht displays a poster image via src attr
-  // *make sure to use the exact names provided in the css
+  // *** - DONE - *** DISPLAY SEARCH RESULTS ON THE PAGE
+  // *** - DONE - *** *data should load inside the #movies <ul>
+  // *** - DONE - *** *see comments in index.html for samples that need to be dynamically created
+  // *** - DONE - *** *each movie returned render an <li> dipslaying:
+  //    *** - DONE - *** **movie title
+  //    *** - DONE - *** **year of release
+  //    *** - DONE - *** **movie poster
+  //        *** - DONE - *** ***render an <img> taht displays a poster image via src attr
+  // *** - DONE - *** *make sure to use the exact names provided in the css
   //******************************************************************************
   //set function for showResults()
   function showResults(response) {
-
+    console.log(response);
+    //set up html format for each response
+    var resultHTML = '<li class="movie-list">';
+    $.each(response.Search, function(i, movie) {
+      resultHTML += '<div class="poster-wrap"><img class="movie-poster" src="' + movie.Poster + '"></div>';
+      resultHTML += '<span class="movie-title">' + movie.Title + '</span>';
+      resultHTML += '<span class="movie-year">' + movie.Year + '</span>';
+    }); // end each
+    resultHTML += '<li>';
+    $('#movies').append(resultHTML);
   }
   //******************************************************************************
   // DISPLAY A PLACEHOLDER ICON WHEN THE API DOES NOT RETURN POSTER DATA
@@ -76,7 +85,7 @@
     } else {
       $('#year').hide();
     }
-  });
+  }); // end search keyup
   //******************************************************************************
   // XTRA CRED: LINK A MOVIE TO ITS IMBD PAGE
   // *wrap the poster image -- or everying in the <li> -- in a <a> tag to link to IMBd
@@ -88,4 +97,4 @@
   // *write new css for new page
   // *see 'description-page.png' mockup in examples folder
   //******************************************************************************
-}();
+}(); // end iife
