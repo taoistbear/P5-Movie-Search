@@ -37,44 +37,53 @@
   //******************************************************************************
   //set function for showResults()
   function showResults(response) {
+    $('#movies').html('');
     console.log(response);
+    if (response.Error) {
+      var errorHTML = '<li class="no-movies"><i class="material-icons icon-help">help_outline</i>No movies found that match: ' + $('#search').val() +'.</li>';
+      $('#movies').append(errorHTML);
+    } // end showResults
     //set up html format for each response
     var resultHTML = '<li class="movie-list">';
     $.each(response.Search, function(i, movie) {
-      resultHTML += '<div class="poster-wrap"><img class="movie-poster" src="' + movie.Poster + '"></div>';
+      if (movie.Poster === 'N/A') {
+        resultHTML += '<a href="http://www.imdb.com/title/' + movie.imdbID + '"><div class="poster-wrap"><i class="material-icons poster-placeholder">crop_original</i></div>';
+      } else {
+          resultHTML += '<a href="http://www.imdb.com/title/' + movie.imdbID + '"><div class="poster-wrap"><img class="movie-poster" src="' + movie.Poster + '"></div>';
+      }
       resultHTML += '<span class="movie-title">' + movie.Title + '</span>';
-      resultHTML += '<span class="movie-year">' + movie.Year + '</span>';
+      resultHTML += '<span class="movie-year">' + movie.Year + '</span></a>';
     }); // end each
-    resultHTML += '<li>';
+    resultHTML += '</li>';
     $('#movies').append(resultHTML);
   }
   //******************************************************************************
-  // DISPLAY A PLACEHOLDER ICON WHEN THE API DOES NOT RETURN POSTER DATA
-  // *should NOT display broken images
-  // *render placeholder icon shown in index.html notes if poster returns 'N/A'
+  // *** - DONE - *** DISPLAY A PLACEHOLDER ICON WHEN THE API DOES NOT RETURN POSTER DATA
+  // *** - DONE - *** *should NOT display broken images
+  // *** - DONE - *** *render placeholder icon shown in index.html notes if poster returns 'N/A'
   //******************************************************************************
 
   //******************************************************************************
-  // LET USERS KNOW WHEN SEARCH RETURNS NO MOVIE DATA
-  // *if no data returned, display the text "No movies found that math: 'title'"
-  // *sample located in index.html
+  // *** - DONE - *** LET USERS KNOW WHEN SEARCH RETURNS NO MOVIE DATA
+  // *** - DONE - *** *if no data returned, display the text "No movies found that math: 'title'"
+  // *** - DONE - *** *sample located in index.html
   //******************************************************************************
 
   //******************************************************************************
-  // ADD COMMENTS TO DOCUMENT HOW THE CODE WORKS
+  // *** - DONE - *** ADD COMMENTS TO DOCUMENT HOW THE CODE WORKS
   //******************************************************************************
 
   //******************************************************************************
-  // USE JSHINT TO ANALYSE SCRIPT AND IDENTIFY AN ERRORS OR CODE-STYLE PROBLEMS
+  // *** - DONE - *** USE JSHINT TO ANALYSE SCRIPT AND IDENTIFY AN ERRORS OR CODE-STYLE PROBLEMS
   //******************************************************************************
 
   //******************************************************************************
-  // MAKE SURE PROGRAM IS FREE OF SYNTAX ERRORS
+  // *** - DONE - *** MAKE SURE PROGRAM IS FREE OF SYNTAX ERRORS
   //******************************************************************************
 
   //******************************************************************************
-  // XTRA CRED: FILTER SEARCH BY YEAR OF RELEASE
-  // *see serach form comments in index.html to display 'year' field
+  // *** - DONE - *** XTRA CRED: FILTER SEARCH BY YEAR OF RELEASE
+  // *** - DONE - *** *see serach form comments in index.html to display 'year' field
   //******************************************************************************
   //hide year initially
   $('#year').hide();
@@ -83,18 +92,13 @@
     if ($('#search').val().length > 0) {
       $('#year').show();
     } else {
+      $('#year').val('');
       $('#year').hide();
     }
   }); // end search keyup
   //******************************************************************************
-  // XTRA CRED: LINK A MOVIE TO ITS IMBD PAGE
-  // *wrap the poster image -- or everying in the <li> -- in a <a> tag to link to IMBd
+  // *** - DONE - *** XTRA CRED: LINK A MOVIE TO ITS IMBD PAGE
+  // *** - DONE - *** *wrap the poster image -- or everying in the <li> -- in a <a> tag to link to IMBd
   //******************************************************************************
 
-  //******************************************************************************
-  // XTRA CRED: LOAD OR LINK TO A DESCRIPTION PAGE DISPLAYING A MOVIES TITLE, YEAR, POSTER, PLOT INFO AND IMBD RATING
-  // *laod or link to a driscription page
-  // *write new css for new page
-  // *see 'description-page.png' mockup in examples folder
-  //******************************************************************************
 }(); // end iife
